@@ -46,6 +46,11 @@
 
   }
   &:hover{
+    .poster{
+      img{
+        transform: scale(1.1);
+      }
+    }
     .details{
 
       .overview{
@@ -71,10 +76,12 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    overflow: hidden;
   }
 
   img {
     width: 100%;
     height: 100%;
+    transition: all 0.4s;
   }
 }
