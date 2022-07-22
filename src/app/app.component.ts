@@ -13,7 +13,8 @@ export class AppComponent implements OnInit {
   constructor(private toastService: ToastService) {}
   ngOnInit() {
 
- this.subscribeToast()
+ this.subscribeToast();
+ this.setTheme()
   }
   subscribeToast(){
     this.toastService.toast.subscribe(
@@ -25,5 +26,9 @@ export class AppComponent implements OnInit {
         }, data.duration);
       }
     );
+  }
+  setTheme(){
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+    document.body.classList.toggle('dark-theme', prefersDark.matches);
   }
 }

@@ -1,0 +1,15 @@
+:root {
+  --primary-color: #222B31ff;
+  --shadow-color: rgb(16 17 19 / 91%);
+  --color-white:#fff;
+  --color-grey:#e7e9eeb5
+}
+@media (prefers-color-scheme: light) {
+  :root{
+    --primary-color: #bce5ff63;
+    --shadow-color: rgb(16 17 19 / 20%);
+    --color-white:#000;
+    --color-grey:#6a6b6fb3
+  }
+
+}
