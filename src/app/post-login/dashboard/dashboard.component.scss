@@ -1,0 +1,134 @@
+
+.page{
+  display: flex;
+    flex-direction: column;
+    max-height: 100vh;
+}
+.header-container {
+  box-shadow: 0px 2px 5px 1px rgb(32 33 36 / 48%);
+  padding: 16px;
+  background-color: #eeeeee;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+
+  .search {
+    display: flex;
+    max-width: 700px;
+    margin: auto;
+    align-items: stretch;
+    height: 36px;
+    position: relative;
+
+    input {
+      flex: 1;
+      padding-left: 10px;
+      border-color: #00000033;
+    }
+
+    button {
+      background-color: #ef711d;
+      border: none;
+      padding: 10px 36px;
+      color: #fff;
+      font-weight: bold;
+
+
+
+    }
+
+    .suggestions {
+      position: absolute;
+      top: 100%;
+      margin: 0;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      background: #fff;
+      width: 100%;
+      overflow: auto;
+      max-height: 200px;
+      transition: 0.4s;
+
+      div {
+        margin: 0px 16px;
+        padding: 6px;
+        border-bottom: 1px solid #00000033;
+      }
+
+      div:hover {
+        box-shadow: 0px 0px 5px 2px rgb(32 33 36 / 18%);
+
+        cursor: pointer;
+      }
+    }
+
+    .suggestions.hide {
+      height: 0;
+    }
+  }
+}
+
+.container {
+  max-width: 700px;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  padding: 16px;
+}
+
+.results {
+  display: flex;
+  justify-content: space-between;
+  color: #828282bf;
+  padding: 16px;
+  align-items: flex-end;
+  width: 100%;
+  box-sizing: border-box;
+
+  .sort-by {
+    color: black;
+    font-weight: bold;
+    letter-spacing: -1px;
+
+  }
+
+  .genere {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ef711d;
+    line-height: 24px;
+  }
+
+  .sorter {
+    cursor: pointer;
+
+    .icon {
+      font-family: ui-serif;
+      font-size: 19px;
+    }
+
+    &.selected {
+      color: #000;
+    }
+
+  }
+}
+
+.movie-list {
+  width: 100%;
+ flex: 1;
+  overflow: auto;
+  align-items: stretch;
+
+  .container {
+    gap: 20px;
+    padding-top: 0px;
+  }
+
+  .movie-card {
+    flex: 1 200px;
+    margin-bottom: 16px;
+  }
+
+
+}

@@ -1,0 +1,42 @@
+<div class="page">
+<header class="header-container">
+  <form>
+
+    <div class="search">
+
+      <input (focus)="onFocus()" (blur)="onBlur()" [(ngModel)]="searchText" [ngModelOptions]="{standalone:true}"
+        placeholder="What are you looking for?">
+      <button type="submit" (click)="onClickOfSearch()">Search</button>
+      <div class="suggestions " [class.hide]="!showGenres" (click)="onClickOfGenre($event)">
+        <div [id]="genere.id" *ngFor="let genere of generes">{{genere.name}}</div>
+
+      </div>
+    </div>
+  </form>
+</header>
+
+  <div class="results container">
+
+    <div class="genere">{{genreName}} movies </div>
+    <div class="" *ngIf="genereId">
+      <span class="sort-by">SORT BY &nbsp;&nbsp;&nbsp;</span>
+      <span class="sorter" [class.selected]="istitleSorted" (click)="onClickOfTitle()"><span class="icon ">A</span>&nbsp;Title &nbsp;</span>
+      <span class="sorter" [class.selected]="isPopularitySorted" (click)="onClickOfPopularity()">
+        <span class="icon">{{isPopularitySorted?'&#x2605;':'&#x2606;'}}</span>
+      <!-- <span><span class="icon icon-title">&#x2605;</span>&nbsp;Popularity</span> -->
+
+        &nbsp;Popularity</span>
+    </div>
+  </div>
+  <div (scroll)="handleScroll($event)" #virtualScroll class="movie-list hide-scrollbar">
+    <div class="container">
+
+
+
+    <!-- <span><span class="icon icon-title">&#x2605;</span>&nbsp;Popularity</span> -->
+  <app-movie-card class="movie-card"  *ngFor="let movie of movieList" [movie]="movie"></app-movie-card>
+
+
+    </div>
+  </div>
+</div>

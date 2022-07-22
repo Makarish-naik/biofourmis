@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="card">
+    <div class="title">Sign In</div>
+    <form [formGroup]="loginForm" (submit)="submit($event)">
+      <div class="input-container">
+        <input  placeholder=' ' type="email" id="userID" class="form-control" formControlName="id" required>
+        <label class="floating-label">Email</label>
+        <div *ngIf="loginFormControl.id.invalid && (loginFormControl.id.dirty || loginFormControl.id.touched)" class="alert alert-danger">
+
+          <div *ngIf="loginFormControl.id.errors?.['required']">
+            *Email is required.
+          </div>
+          <div *ngIf="loginFormControl.id.errors?.['email']">
+            *Inavlid Email.
+          </div>
+
+        </div>
+      </div>
+      <div class="input-container">
+        <input placeholder=" " type="password" id="password" class="form-control" formControlName="password" required>
+        <label class="floating-label">Password</label>
+
+        <div *ngIf="loginFormControl.password.invalid && (loginFormControl.password.dirty || loginFormControl.password.touched)" class="alert alert-danger">
+
+          <div *ngIf="loginFormControl.password.errors?.['required']">
+            *Password is required
+          </div>
+          <div *ngIf="loginFormControl.password.errors?.['minLength']">
+            *Minimum length is 4
+          </div>
+
+        </div>
+      </div>
+      <button [disabled]="loginForm.invalid">SUBMIT</button>
+      <div class="register">Don't have an account <span>Sing Up</span></div>
+    </form>
+  </div>
+</div>
