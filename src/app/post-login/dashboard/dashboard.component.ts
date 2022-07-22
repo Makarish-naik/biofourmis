@@ -6,6 +6,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { throttle } from 'rxjs';
 import { Movie } from 'src/app/models/movie.model';
 import { MovieService } from 'src/app/services/movie.service';
 
@@ -25,10 +26,11 @@ export class DashboardComponent implements OnInit {
   page = 1;
   genereId: any;
   genreName: string | undefined = 'Popular';
+  timer: any;
   constructor(private movieServices: MovieService) {}
 
   ngOnInit(): void {
-    this.getMoviesByName()
+    this.getMoviesByName();
     this.getGenres();
   }
 
@@ -68,32 +70,30 @@ export class DashboardComponent implements OnInit {
   onClickOfTitle() {
     this.isPopularitySorted = false;
     this.istitleSorted = !this.istitleSorted;
-    this.page=1
-    this.movieList=[]
-    this.getMoviesByGenere()
+    this.page = 1;
+    this.movieList = [];
+    this.getMoviesByGenere();
   }
   onClickOfPopularity() {
     this.istitleSorted = false;
     this.isPopularitySorted = !this.isPopularitySorted;
-    this.page=1
-    this.movieList=[]
-    this.getMoviesByGenere()
+    this.page = 1;
+    this.movieList = [];
+    this.getMoviesByGenere();
   }
   getMoviesByGenere() {
-    let reqParams={
-      with_genres:this.genereId,
-      page:this.page,
-      sort_by:this.istitleSorted?'original_title.asc':'popularity.desc'
-    }
-    this.movieServices
-      .getMovieByGenre(reqParams)
-      .subscribe((movieList) => {
-        if (this.page > 1) {
-          this.movieList.push(...movieList);
-        } else {
-          this.movieList = movieList;
-        }
-      });
+    let reqParams = {
+      with_genres: this.genereId,
+      page: this.page,
+      sort_by: this.istitleSorted ? 'original_title.asc' : 'popularity.desc',
+    };
+    this.movieServices.getMovieByGenre(reqParams).subscribe((movieList) => {
+      if (this.page > 1) {
+        this.movieList.push(...movieList);
+      } else {
+        this.movieList = movieList;
+      }
+    });
   }
   getMoviesByName() {
     this.movieServices
@@ -106,17 +106,23 @@ export class DashboardComponent implements OnInit {
         }
       });
   }
-
+  virtualScroll() {
+    this.page++;
+    if (!this.genereId) {
+      this.getMoviesByName();
+    } else {
+      this.getMoviesByGenere();
+    }
+  }
   handleScroll(e: any) {
     let scrollPosition = e.target.scrollHeight - e.target.scrollTop - 200;
     const bottom = scrollPosition < e.target.clientHeight;
+
     if (bottom) {
-      this.page++;
-      if (!this.genereId) {
-        this.getMoviesByName();
-      } else {
-        this.getMoviesByGenere();
-      }
+      if (this.timer) clearTimeout(this.timer);
+      this.timer = setTimeout(() => {
+        this.virtualScroll();
+      }, 500);
     }
   }
 }
