@@ -1,16 +1,19 @@
 <div class="movie-card">
   <div class="poster"
-
-  >
+  [style.backgroundImage]="
+  'url(assets/default-movie.png)'
+  ">
 
   <img
-  [src]="'https://image.tmdb.org/t/p/original'+movie.poster_path "
+  [src]="'asas'"
   [srcset]="
   'https://image.tmdb.org/t/p/w92'+movie.poster_path +' 1x,'+
   'https://image.tmdb.org/t/p/w154'+movie.poster_path +' 2x,'+
   'https://image.tmdb.org/t/p/w500'+movie.poster_path +' 3x,'+
   'https://image.tmdb.org/t/p/original'+movie.poster_path +' 4x'"
   loading="lazy"
+  [alt]="movie.title"
+  onerror="this.src='assets/default-movie.png'"
   >
   </div>
 

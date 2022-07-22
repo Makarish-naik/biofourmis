@@ -119,10 +119,21 @@ export class DashboardComponent implements OnInit {
     const bottom = scrollPosition < e.target.clientHeight;
 
     if (bottom) {
-      if (this.timer) clearTimeout(this.timer);
-      this.timer = setTimeout(() => {
+      if(this.timer){
+        return
+      }else{
         this.virtualScroll();
-      }, 500);
+        this.timer=true
+        this.timer= setTimeout(() => {
+          // clearTimeout(this.timer)
+          this.timer=false
+        }, 500);
+      }
+
+      // if (this.timer) clearTimeout(this.timer);
+      // this.timer = setTimeout(() => {
+      //   this.virtualScroll();
+      // }, 500);
     }
   }
 }
